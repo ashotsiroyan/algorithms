@@ -100,6 +100,29 @@
             return -1;
         }
 
+        public static long Factorial(int n)
+        {
+            if (n == 0)
+                return 1;
+            else
+                return n * Factorial(n - 1);
+        }
+
+        public static long Fibonacci(int n)
+        {
+            long a = 1, b = 0;
+
+            while (n > 0)
+            {
+                long t = a;
+                a += b;
+                b = t;
+                --n;
+            }
+
+            return b;
+        }
+
         private static void Merge(int[] arr, int start, int mid, int end)
         {
             int[] temp = new int[end - start + 1];
