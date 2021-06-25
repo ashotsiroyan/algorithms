@@ -1,4 +1,6 @@
-﻿namespace algorithms
+﻿using System;
+
+namespace algorithms
 {
     public class Algorithms
     {
@@ -74,7 +76,7 @@
             return r;
         }
 
-        public static int BinarySearch(int[] arr, int value)
+        public static int BinarySearch<T>(T[] arr, T value) where T : IComparable
         {
             int low = 0;
             int high = arr.Length - 1;
@@ -83,11 +85,13 @@
             {
                 int mid = low + (int)(high - low) / 2;
 
-                if (value == arr[mid])
+                int compare = value.CompareTo(arr[mid]);
+
+                if (compare == 0)
                 {
                     return mid;
                 }
-                else if (value > arr[mid])
+                else if (compare > 0)
                 {
                     low = mid + 1;
                 }
@@ -123,15 +127,15 @@
             return b;
         }
 
-        private static void Merge(int[] arr, int start, int mid, int end)
+        private static void Merge<T>(T[] arr, int start, int mid, int end) where T : IComparable
         {
-            int[] temp = new int[end - start + 1];
+            T[] temp = new T[end - start + 1];
 
             int i = start, j = mid + 1, k = 0;
 
             while (i <= mid && j <= end)
             {
-                if (arr[i] <= arr[j])
+                if (arr[i].CompareTo(arr[j]) <= 0)
                 {
                     temp[k++] = arr[i++];
                 }
@@ -157,7 +161,7 @@
             }
         }
 
-        private static void MergeSort(int[] arr, int start, int end)
+        private static void MergeSort<T>(T[] arr, int start, int end) where T : IComparable
         {
             if (start < end)
             {
@@ -169,25 +173,25 @@
             }
         }
 
-        public static void MergeSort(int[] arr)
+        public static void MergeSort<T>(T[] arr) where T : IComparable
         {
             MergeSort(arr, 0, arr.Length - 1);
         }
 
-        private static void Swap(ref int x, ref int y)
+        private static void Swap<T>(ref T x, ref T y)
         {
-            int t = x;
+            T t = x;
 
             x = y;
             y = t;
         }
 
-        private static int Partition(int[] arr, int start, int end)
+        private static int Partition<T>(T[] arr, int start, int end) where T : IComparable
         {
             int pivot = start - 1;
             for (var i = start; i < end; i++)
             {
-                if (arr[i] < arr[end])
+                if (arr[i].CompareTo(arr[end]) < 0)
                 {
                     pivot++;
                     Swap(ref arr[pivot], ref arr[i]);
@@ -199,7 +203,7 @@
             return pivot;
         }
 
-        private static void QuickSort(int[] arr, int start, int end)
+        private static void QuickSort<T>(T[] arr, int start, int end) where T : IComparable
         {
             if (start < end)
             {
@@ -209,12 +213,12 @@
             }
         }
 
-        public static void QuickSort(int[] arr)
+        public static void QuickSort<T>(T[] arr) where T : IComparable
         {
             QuickSort(arr, 0, arr.Length - 1);
         }
 
-        public static void SelectionSort(int[] arr)
+        public static void SelectionSort<T>(T[] arr) where T: IComparable
         {
             for (int i = 0; i < arr.Length - 1; ++i)
             {
@@ -222,7 +226,7 @@
 
                 for (int j = i + 1; j < arr.Length; ++j)
                 {
-                    if (arr[j] < arr[t])
+                    if (arr[j].CompareTo(arr[t]) < 0)
                         t = j;
                 }
 
@@ -231,13 +235,13 @@
             }
         }
 
-        public static void InsertionSort(int[] arr)
+        public static void InsertionSort<T>(T[] arr) where T : IComparable
         {
             for (int i = 1; i < arr.Length; ++i)
             {
                 int j = i;
 
-                while (j != 0 && arr[j - 1] > arr[j])
+                while (j != 0 && arr[j].CompareTo(arr[j - 1]) < 0)
                 {
                     Swap(ref arr[j], ref arr[j - 1]);
 
