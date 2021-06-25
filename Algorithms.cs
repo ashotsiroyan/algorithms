@@ -81,7 +81,7 @@
 
             while (low <= high)
             {
-                int mid = (low + high) / 2;
+                int mid = low + (int)(high - low) / 2;
 
                 if (value == arr[mid])
                 {
@@ -161,7 +161,7 @@
         {
             if (start < end)
             {
-                int mid = (start + end) / 2;
+                int mid = start + (int)(end - start)/2;
 
                 MergeSort(arr, start, mid);
                 MergeSort(arr, mid + 1, end);
@@ -212,6 +212,38 @@
         public static void QuickSort(int[] arr)
         {
             QuickSort(arr, 0, arr.Length - 1);
+        }
+
+        public static void SelectionSort(int[] arr)
+        {
+            for (int i = 0; i < arr.Length - 1; ++i)
+            {
+                int t = i;
+
+                for (int j = i + 1; j < arr.Length; ++j)
+                {
+                    if (arr[j] < arr[t])
+                        t = j;
+                }
+
+                if (t != i)
+                    Swap(ref arr[i], ref arr[t]);
+            }
+        }
+
+        public static void InsertionSort(int[] arr)
+        {
+            for (int i = 1; i < arr.Length; ++i)
+            {
+                int j = i;
+
+                while (j != 0 && arr[j - 1] > arr[j])
+                {
+                    Swap(ref arr[j], ref arr[j - 1]);
+
+                    --j;
+                }
+            }
         }
     }
 }
