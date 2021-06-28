@@ -249,5 +249,49 @@ namespace algorithms
                 }
             }
         }
+
+        private static void Sink<T>(T[] arr, int i, int n) where T : IComparable
+        {
+            int k = i;
+            bool placed = false;
+            int j = 2 * k + 1;
+
+            while (!placed && j < n)
+            {
+                if (j < n - 1 && arr[j].CompareTo(arr[j + 1]) < 0)
+                {
+                    j++;
+                }
+
+                if (arr[k].CompareTo(arr[j]) >= 0)
+                {
+                    placed = true;
+                }
+                else
+                {
+                    Swap(ref arr[k], ref arr[j]);
+                }
+
+                k = j;
+                j = 2 * k + 1;
+            }
+        }
+
+        public static void HeapSort<T>(T[] arr) where T : IComparable
+        {
+            int n = arr.Length;
+
+            for (int i = n - 1; i > -1; i--)
+            {
+                Sink(arr, i, n);
+            }
+
+            while (n > 0)
+            {
+                Swap(ref arr[0], ref arr[n - 1]);
+                n--;
+                Sink(arr, 0, n);
+            }
+        }
     }
 }
