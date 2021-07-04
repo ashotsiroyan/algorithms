@@ -119,9 +119,10 @@ namespace algorithms
             while (n > 0)
             {
                 long t = a;
+
                 a += b;
                 b = t;
-                --n;
+                n--;
             }
 
             return b;
@@ -241,11 +242,11 @@ namespace algorithms
             {
                 int j = i;
 
-                while (j != 0 && arr[j].CompareTo(arr[j - 1]) < 0)
+                while (j > 0 && arr[j].CompareTo(arr[j - 1]) < 0)
                 {
                     Swap(ref arr[j], ref arr[j - 1]);
 
-                    --j;
+                    j--;
                 }
             }
         }
@@ -292,6 +293,30 @@ namespace algorithms
                 n--;
                 Sink(arr, 0, n);
             }
+        }
+
+        public static int SecretarySearch<T>(T[] arr) where T : IComparable
+        {
+            int m = (int)(arr.Length / Math.E);
+            int c = 0;
+            
+            for (int i = 1; i < m; i++)
+            {
+                if (arr[i].CompareTo(arr[c]) > 0)
+                {
+                    c = i;
+                }
+            }
+
+            for (int i = m; i < arr.Length; i++)
+            {
+                if (arr[i].CompareTo(arr[c]) > 0)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
     }
 }
